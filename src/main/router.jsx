@@ -5,7 +5,7 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
-import { Layout, firebase, Login } from "@/main";
+import { Layout, firebase, Login, UserContext } from "@/main";
 import { Category, Product, AboutUs, Contact } from "@/components";
 import { AdminLayout } from "@/components/admin";
 
@@ -20,7 +20,6 @@ export default function Router() {
       abortController.abort();
     };
   }, [abortController]);
-
   if (firebase.auth.currentUser) {
     console.log("yes");
   } else {
@@ -37,7 +36,11 @@ export default function Router() {
           <Route path="/product/:id" component={Product} />
           <Route path="/login" component={Login} />
           {currentUser !== null ? (
-            <Route path="/admin" component={AdminLayout} />
+            <UserContext.Provider
+              value={{ email: firebase.auth.currentUser?.email }}
+            >
+              <Route path="/admin" component={AdminLayout} />
+            </UserContext.Provider>
           ) : (
             <Redirect to="/login" />
           )}

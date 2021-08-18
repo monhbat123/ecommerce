@@ -97,15 +97,27 @@ body {
 }
 .admin_header_container {
   height: 50px;
-  background-color: #1890ff;
   display: flex;
   flex-direction: row-reverse;
-  padding-right: 50px;
+  padding-right: 5px;
+  background: #1890ff;
+  border: 1px solid #1890ff;
 }
-.admin_logout_button {
-  margin: 0;
+.ant-layout-sider-zero-width-trigger {
+  background-color: #1890ff;
   position: absolute;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+  margin-top: -110px;
+}
+.ant-layout-sider {
+  background: #295288;
+}
+.ant-menu {
+  background: #295288;
+}
+.ant-menu-title-content {
+  color: #ffffff;
+  font-size: 18px;
+}
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: #1890ff;
 }

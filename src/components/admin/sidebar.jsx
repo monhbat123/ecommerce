@@ -11,14 +11,7 @@ export default function Sidebar(props) {
       breakpoint="lg"
       collapsedWidth="0"
       style={{ height: "100vh" }}
-      onBreakpoint={(broken) => {
-        console.log(broken);
-      }}
-      onCollapse={(collapsed, type) => {
-        console.log(collapsed, type);
-      }}
     >
-      <div className="sidebar_title">Dashboard</div>
       <SidebarItem className="sidebar_item" {...props} />
     </Sider>
   );

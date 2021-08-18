@@ -8,6 +8,8 @@ import firebase from "./firebase";
 import Login from "./login";
 import { vars, getVars } from "./global";
 import AdminCard from "./admin_card";
+import { UserContext } from "./context";
+import ImageUpload from "./image_upload";
 export {
   Carousel,
   Layout,
@@ -20,4 +22,6 @@ export {
   vars,
   getVars,
   AdminCard,
+  UserContext,
+  ImageUpload,
 };

@@ -7,11 +7,13 @@ import {
   AdminNews,
   AdminProduct,
   AdminSubCategory,
+  AdminHome,
 } from "@/components/admin";
 function AdminContent() {
   return (
     <div className="content_container">
       <Switch>
+        <Route path="/admin/home" component={AdminHome} />
         <Route path="/admin/about-us" component={AdminAboutUs} />
         <Route path="/admin/brand" component={AdminBrand} />
         <Route path="/admin/category" component={AdminCategory} />

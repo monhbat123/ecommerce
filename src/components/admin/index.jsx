@@ -6,7 +6,7 @@ import { AdminContact } from "@/components/admin/admin_contact";
 import { AdminNews } from "@/components/admin/admin_news";
 import { AdminProduct } from "@/components/admin/admin_product";
 import { AdminSubCategory } from "@/components/admin/admin_sub_category";
-
+import { AdminHome } from "@/components/admin/admin_home";
 export {
   AdminLayout,
   AdminAboutUs,
@@ -16,4 +16,5 @@ export {
   AdminNews,
   AdminProduct,
   AdminSubCategory,
+  AdminHome,
 };

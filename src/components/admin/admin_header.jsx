@@ -1,6 +1,9 @@
-import { Button } from "antd";
-import { firebase } from "@/main";
+import { useContext } from "react";
+import { Menu, Dropdown, message } from "antd";
+import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
+import { firebase, UserContext } from "@/main";
 export default function AdminHeader() {
+  const { email } = useContext(UserContext);
   function logOut() {
     firebase.auth
       .signOut()
@@ -11,16 +14,35 @@ export default function AdminHeader() {
         alert(error);
       });
   }
-  return (
-    <div className="admin_header_container">
-      <Button
-        className="admin_logout_button"
+
+  function handleMenuClick() {
+    message.info("Амжилттай галаа.");
+    logOut();
+  }
+  const menu = (
+    <Menu>
+      <Menu.Item
         onClick={() => {
-          logOut();
+          handleMenuClick();
         }}
+        key="1"
+        icon={<LogoutOutlined />}
       >
         Гарах
-      </Button>
+      </Menu.Item>
+    </Menu>
+  );
+  return (
+    <div className="admin_header_container">
+      <Dropdown.Button
+        overlay={menu}
+        placement="bottomCenter"
+        icon={<UserOutlined />}
+        style={{ margin: 7 }}
+        type="primary"
+      >
+        {email}
+      </Dropdown.Button>
     </div>
   );
 }

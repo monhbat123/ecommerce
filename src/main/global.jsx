@@ -1,6 +1,11 @@
 let vars = {
   menus: [
     {
+      key: "/admin/home",
+      name: "Нүүр",
+      link: "/admin/home",
+    },
+    {
       key: "/admin/about-us",
       name: "Бидний тухай",
       link: "/admin/about-us",
