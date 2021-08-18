@@ -1,0 +1,111 @@
+@import "~antd/dist/antd.css";
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  margin: 0;
+}
+* {
+  box-sizing: border-box;
+}
+.container {
+  padding: 15px;
+}
+@media (min-width: 1000px) {
+  dl {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  dt {
+    width: 18%;
+  }
+  dd {
+    width: 82%;
+  }
+}
+
+.MainCard {
+  width: 99%;
+  margin: 0 auto;
+}
+.MainCardBody {
+  display: flex;
+  flex-wrap: wrap;
+}
+.product_card {
+  width: 180px;
+  margin: 15px;
+}
+.home_category_container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.header_container {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 35px;
+  padding-left: 35px;
+  border-top: 3px solid black;
+}
+.header_item {
+  margin-right: 25px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #295288;
+}
+.header_logo {
+  margin-right: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+@media (max-width: 585px) {
+  .header_container {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 35px;
+    padding-left: 35px;
+  }
+  .header_logo {
+    display: none;
+  }
+}
+#components-layout-demo-custom-trigger .trigger {
+  padding: 0 24px;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+#components-layout-demo-custom-trigger .trigger:hover {
+  color: #1890ff;
+}
+
+#components-layout-demo-custom-trigger .logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
+.admin_card_body {
+  padding: 24px;
+}
+.admin_header_container {
+  height: 50px;
+  background-color: #1890ff;
+  display: flex;
+  flex-direction: row-reverse;
+  padding-right: 50px;
+}
+.admin_logout_button {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
