@@ -7,6 +7,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
   const [form] = Form.useForm();
   const [description, setDescription] = useState("");
   const [description2, setDescription2] = useState("");
+  const [image_url, set_url] = useState([]);
   return (
     <Modal
       visible={visible}
@@ -19,7 +20,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
           .validateFields()
           .then((values) => {
             form.resetFields();
-            onCreate(values, description, description2);
+            onCreate(values, description, description2, image_url);
           })
           .catch((info) => {
             console.log("Validate Failed:", info);
@@ -54,7 +55,13 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
             onChange={setDescription2}
           />
         </Form.Item>
-        <Form.Item label="Зураг оруулах">{/* <ImageUpload /> */}</Form.Item>
+        <Form.Item label="Зураг оруулах">
+          <ImageUpload
+            image_URL={(q) => {
+              set_url(q);
+            }}
+          />
+        </Form.Item>
       </Form>
     </Modal>
   );
@@ -63,7 +70,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
 const BrandAdd = ({ loader }) => {
   const [visible, setVisible] = useState(false);
 
-  const onCreate = (values, description, description2) => {
+  const onCreate = (values, description, description2, image_url) => {
     firebase.db
       .collection("Brand")
       .doc()
@@ -72,6 +79,7 @@ const BrandAdd = ({ loader }) => {
         nameEn: values.nameEn,
         description: description,
         descriptionEn: description2,
+        image: image_url,
       })
       .then(function () {
         message.success("Амжилттай нэмэгдлээ");

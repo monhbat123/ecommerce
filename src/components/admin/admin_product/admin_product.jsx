@@ -5,6 +5,8 @@ import moment from "moment";
 import AdminProductAdd from "./admin_product_add";
 import ProductDelete from "./admin_product_delete";
 import ProductUpdate from "./admin_product_update";
+import ProductShow from "./admin_product_show";
+import ProductStatus from "./admin_product_status";
 export default function AdminProduct() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -34,15 +36,19 @@ export default function AdminProduct() {
     },
     {
       title: "Төлөв",
-      dataIndex: "isAvailable",
+      dataIndex: ["isAvailable", "key"],
       key: "isAvailable",
-      render: (a) => (a ? "Байгаа" : "Байхгүй"),
+      // render: (a) => (a ? "Байгаа" : "Байхгүй"),
+      render: (a, q) => {
+        return <ProductStatus checked={q} />;
+      },
     },
     {
       title: "Нүүрэнд харагдах",
-      dataIndex: "isFeatured",
+      dataIndex: ["isFeatured", "key"],
       key: "isFeatured",
-      render: (a) => (a ? "Тийм" : "Үгүй"),
+      // render: (a) => (a ? "Тийм" : "Үгүй"),
+      render: (a, q) => <ProductShow checked={q} />,
     },
     {
       title: "Засах / Харах",
@@ -67,7 +73,7 @@ export default function AdminProduct() {
   ];
   return (
     <AdminCard title="Бараа" loading="">
-      <Card extra={<AdminProductAdd />}>
+      <Card extra={<AdminProductAdd loader={setLoading} />}>
         <Table
           dataSource={data}
           columns={columns}

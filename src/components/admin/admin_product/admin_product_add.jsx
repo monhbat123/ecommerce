@@ -11,8 +11,27 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
   const [category, set_category] = useState([]);
   const [sub_category, set_sub_category] = useState([]);
   const [brand, set_brand] = useState([]);
+  const [status, setStatus] = useState(true);
+  const [show, setShow] = useState(false);
+  const [sel_category, set_sel_cat] = useState([]);
+  const [sel_sub_category, set_sel_sub_cat] = useState([]);
+  const [sel_brand, set_sel_brand] = useState([]);
+  const [image_url, set_url] = useState([]);
+
   function handleChange(value) {
-    console.log(`selected ${value}`);
+    set_sel_cat(value);
+  }
+  function handleChange2(value) {
+    set_sel_sub_cat(value);
+  }
+  function handleChange3(value) {
+    set_sel_brand(value);
+  }
+  function handleChange4(value) {
+    setStatus(value);
+  }
+  function handleChange5(value) {
+    setShow(value);
   }
 
   useEffect(() => {
@@ -59,7 +78,17 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
           .validateFields()
           .then((values) => {
             form.resetFields();
-            onCreate(values, description, description2);
+            onCreate(
+              values,
+              description,
+              description2,
+              sel_category,
+              sel_sub_category,
+              sel_brand,
+              status,
+              show,
+              image_url
+            );
           })
           .catch((info) => {
             console.log("Validate Failed:", info);
@@ -86,7 +115,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
           </Select>
         </Form.Item>
         <Form.Item label="Жижиг төрөл">
-          <Select onChange={handleChange}>
+          <Select onChange={handleChange2}>
             {sub_category.map((q) => {
               return (
                 <Option key={q.key} value={q.key}>
@@ -97,7 +126,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
           </Select>
         </Form.Item>
         <Form.Item label="Брэнд">
-          <Select onChange={handleChange}>
+          <Select onChange={handleChange3}>
             {brand.map((q) => {
               return (
                 <Option key={q.key} value={q.key}>
@@ -105,6 +134,18 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
                 </Option>
               );
             })}
+          </Select>
+        </Form.Item>
+        <Form.Item label="Төлөв">
+          <Select onChange={handleChange4} defaultValue={status}>
+            <Option value={true}>Байгаа</Option>
+            <Option value={false}>Байхгүй</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item label="Нүүрэнд харуулах">
+          <Select onChange={handleChange5} defaultValue={show}>
+            <Option value={true}>Тийм</Option>
+            <Option value={false}>Үгүй</Option>
           </Select>
         </Form.Item>
         <Form.Item name="name" label="Нэр">
@@ -127,7 +168,13 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
             onChange={setDescription2}
           />
         </Form.Item>
-        <Form.Item label="Зураг оруулах">{/* <ImageUpload /> */}</Form.Item>
+        <Form.Item label="Зураг оруулах">
+          <ImageUpload
+            image_URL={(q) => {
+              set_url(q);
+            }}
+          />
+        </Form.Item>
       </Form>
     </Modal>
   );
@@ -136,18 +183,34 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
 const ProductAdd = ({ loader }) => {
   const [visible, setVisible] = useState(false);
 
-  const onCreate = (values, description, description2) => {
+  const onCreate = (
+    values,
+    description,
+    description2,
+    status,
+    show,
+    sel_category,
+    sel_sub_category,
+    sel_brand,
+    image_url
+  ) => {
     firebase.db
-      .collection("Brand")
+      .collection("Product")
       .doc()
       .set({
         name: values.name,
         nameEn: values.nameEn,
         description: description,
         descriptionEn: description2,
+        isAvailable: status,
+        isFeatured: show,
+        category: sel_category,
+        sub_category: sel_sub_category,
+        brand: sel_brand,
+        image: image_url,
       })
       .then(function () {
-        message.success("Амжилттай нэмэгдлээ");
+        message.success("Бараа амжилттай нэмэгдлээ");
         setVisible(false);
         loader(true);
       })

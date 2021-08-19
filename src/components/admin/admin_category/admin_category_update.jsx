@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Form, Input, message } from "antd";
-import { firebase } from "@/main";
+import { firebase, ImageUpload } from "@/main";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 const CollectionCreateForm = ({ visible, onCreate, onCancel, defaultData }) => {
   const [form] = Form.useForm();
   const [description, setDescription] = useState([defaultData.description]);
   const [description2, setDescription2] = useState([defaultData.descriptionEn]);
+  const [image_url, set_url] = useState([]);
+
+  useEffect(() => {
+    form.resetFields();
+  }, [defaultData, form, onCreate]);
+
   return (
     <Modal
       visible={visible}
@@ -19,7 +25,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel, defaultData }) => {
           .validateFields()
           .then((values) => {
             form.resetFields();
-            onCreate(values, description, description2);
+            onCreate(values, description, description2, image_url);
           })
           .catch((info) => {
             console.log("Validate Failed:", info);
@@ -58,6 +64,14 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel, defaultData }) => {
             }}
           />
         </Form.Item>
+        <Form.Item label="Зураг оруулах">
+          <ImageUpload
+            defaultImage={defaultData.image}
+            image_URL={(q) => {
+              set_url(q);
+            }}
+          />
+        </Form.Item>
       </Form>
     </Modal>
   );
@@ -65,7 +79,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel, defaultData }) => {
 
 const AdminCategoryUpdate = ({ defaultData, loader }) => {
   const [visible, setVisible] = useState(false);
-  const onCreate = (values, description, description2) => {
+  const onCreate = (values, description, description2, image_url) => {
     firebase.db
       .collection("Category")
       .doc(defaultData.key)
@@ -74,6 +88,7 @@ const AdminCategoryUpdate = ({ defaultData, loader }) => {
         nameEn: values.nameEn,
         description: description[0],
         descriptionEn: description2[0],
+        image: image_url,
       })
       .then(function () {
         message.success("Амжилттай засагдлаа");

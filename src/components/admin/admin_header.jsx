@@ -7,11 +7,9 @@ export default function AdminHeader() {
   function logOut() {
     firebase.auth
       .signOut()
-      .then(() => {
-        console.log("loged out");
-      })
+      .then(() => {})
       .catch((error) => {
-        alert(error);
+        message.info(error);
       });
   }
 

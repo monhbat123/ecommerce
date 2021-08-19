@@ -1,24 +1,20 @@
-import { Form, Input, Button, Card } from "antd";
+import { Form, Input, Button, Card, Spin, message } from "antd";
 import { firebase } from "@/main";
 
 const Login = () => {
   const onFinish = (values) => {
-    console.log("Success:", values);
     firebase.auth
       .signInWithEmailAndPassword(values.email, values.password)
-      .then((user) => {
-        console.log(user);
+      .then(() => {
+        if (!firebase.auth.currentUser) {
+          return <Spin />;
+        }
         window.location.hash = "/admin";
       })
       .catch((error) => {
-        var errorCode = error.code;
         var errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        message.error(errorMessage);
       });
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
   };
 
   return (
@@ -35,7 +31,6 @@ const Login = () => {
           remember: true,
         }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
       >
         <Form.Item
           label="Нэвтрэх нэр"
@@ -43,7 +38,7 @@ const Login = () => {
           rules={[
             {
               required: true,
-              message: "Please input your username!",
+              message: "Нэвтрэх нэрээ оруулна уу!",
             },
           ]}
         >
@@ -56,7 +51,7 @@ const Login = () => {
           rules={[
             {
               required: true,
-              message: "Please input your password!",
+              message: "Нууц үгээ оруулна уу!",
             },
           ]}
         >

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Modal, Form, Input, message, Select } from "antd";
+import { Modal, Form, Input, message, Select } from "antd";
 import ReactQuill from "react-quill";
 import { firebase, ImageUpload } from "@/main";
 import "react-quill/dist/quill.snow.css";
@@ -11,10 +11,14 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel, defaultData }) => {
   const [category, set_category] = useState([]);
   const [sub_category, set_sub_category] = useState([]);
   const [brand, set_brand] = useState([]);
+  const [image_url, set_url] = useState([]);
+
   function handleChange(value) {
     console.log(`selected ${value}`);
   }
-
+  useEffect(() => {
+    form.resetFields();
+  }, [defaultData, form, onCreate]);
   useEffect(() => {
     firebase.db.collection("Category").onSnapshot((querySnapshot) => {
       const category = [];
@@ -47,6 +51,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel, defaultData }) => {
       set_brand(brand);
     });
   }, [visible]);
+  console.log(defaultData);
   return (
     <Modal
       visible={visible}
@@ -75,10 +80,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel, defaultData }) => {
         }}
       >
         <Form.Item label="Төрөл">
-          <Select
-            defaultValue={defaultData.categoryName}
-            onChange={handleChange}
-          >
+          <Select defaultValue={defaultData.category} onChange={handleChange}>
             {category.map((q) => {
               return (
                 <Option key={q.key} value={q.key}>
@@ -91,7 +93,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel, defaultData }) => {
         <Form.Item label="Жижиг төрөл">
           <Select
             onChange={handleChange}
-            defaultValue={defaultData.subCategoryName}
+            defaultValue={defaultData.sub_category}
           >
             {sub_category.map((q) => {
               return (
@@ -103,7 +105,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel, defaultData }) => {
           </Select>
         </Form.Item>
         <Form.Item label="Брэнд">
-          <Select onChange={handleChange} defaultValue={defaultData.brandName}>
+          <Select onChange={handleChange} defaultValue={defaultData.brand}>
             {brand.map((q) => {
               return (
                 <Option key={q.key} value={q.key}>
@@ -129,11 +131,10 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel, defaultData }) => {
           />
         </Form.Item>
         <Form.Item label="Тайлбар (English)">
-          <ReactQuill
-            theme="snow"
-            value={description2[0]}
-            onChange={(w) => {
-              setDescription2([w]);
+          <ImageUpload
+            defaultImage={defaultData.image}
+            image_URL={(q) => {
+              set_url(q);
             }}
           />
         </Form.Item>
@@ -145,19 +146,34 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel, defaultData }) => {
 
 const ProductUpdate = ({ loader, defaultData }) => {
   const [visible, setVisible] = useState(false);
-  console.log(defaultData);
-  const onCreate = (values, description, description2) => {
+  const onCreate = (
+    values,
+    description,
+    description2,
+    status,
+    show,
+    sel_category,
+    sel_sub_category,
+    sel_brand,
+    image_url
+  ) => {
     firebase.db
       .collection("Product")
-      .doc()
-      .set({
+      .doc(defaultData.key)
+      .update({
         name: values.name,
         nameEn: values.nameEn,
         description: description,
         descriptionEn: description2,
+        isAvailable: status,
+        isFeatured: show,
+        category: sel_category,
+        sub_category: sel_sub_category,
+        brand: sel_brand,
+        image: image_url,
       })
       .then(function () {
-        message.success("Амжилттай нэмэгдлээ");
+        message.success("Бараа амжилттай засагдлаа");
         setVisible(false);
         loader(true);
       })

@@ -20,11 +20,7 @@ export default function Router() {
       abortController.abort();
     };
   }, [abortController]);
-  if (firebase.auth.currentUser) {
-    console.log("yes");
-  } else {
-    console.log("no");
-  }
+
   return (
     <>
       <BrowserRouter basename="/">

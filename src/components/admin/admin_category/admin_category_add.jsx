@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Button, Modal, Form, Input, message } from "antd";
 import ReactQuill from "react-quill";
-import { firebase } from "@/main";
+import { firebase, ImageUpload } from "@/main";
 import "react-quill/dist/quill.snow.css";
 const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
   const [form] = Form.useForm();
   const [description, setDescription] = useState("");
   const [description2, setDescription2] = useState("");
+  const [image_url, set_url] = useState([]);
+
   return (
     <Modal
       visible={visible}
@@ -19,7 +21,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
           .validateFields()
           .then((values) => {
             form.resetFields();
-            onCreate(values, description, description2);
+            onCreate(values, description, description2, image_url);
           })
           .catch((info) => {
             console.log("Validate Failed:", info);
@@ -54,6 +56,13 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
             onChange={setDescription2}
           />
         </Form.Item>
+        <Form.Item label="Зураг оруулах">
+          <ImageUpload
+            image_URL={(q) => {
+              set_url(q);
+            }}
+          />
+        </Form.Item>
       </Form>
     </Modal>
   );
@@ -62,7 +71,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
 const AdminCategoryAdd = ({ loader }) => {
   const [visible, setVisible] = useState(false);
 
-  const onCreate = (values, description, description2) => {
+  const onCreate = (values, description, description2, image_url) => {
     firebase.db
       .collection("Category")
       .doc()
@@ -71,6 +80,7 @@ const AdminCategoryAdd = ({ loader }) => {
         nameEn: values.nameEn,
         description: description,
         descriptionEn: description2,
+        image: image_url,
       })
       .then(function () {
         message.success("Амжилттай нэмэгдлээ");

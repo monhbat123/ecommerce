@@ -8,7 +8,7 @@ export default function AdminSubCategoryDelete({ id, loader }) {
       .get()
       .then((querySnapshot) => {
         querySnapshot.ref.delete();
-        message.success("Амжилттай устгагдлаа");
+        message.success("Бараа амжилттай устгагдлаа");
         loader(true);
       });
   }
