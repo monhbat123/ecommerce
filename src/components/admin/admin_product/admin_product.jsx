@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { AdminCard, firebase } from "@/main";
 import { Table, Card } from "antd";
 import moment from "moment";
-import AdminProductAdd from "./admin_product_add";
+import AdminProductAdd from "./admin_product_add/admin_product_add";
 import ProductDelete from "./admin_product_delete";
-import ProductUpdate from "./admin_product_update";
+import ProductUpdate from "./admin_product_update/admin_product_update";
 import ProductShow from "./admin_product_show";
 import ProductStatus from "./admin_product_status";
 export default function AdminProduct() {
