@@ -147,7 +147,7 @@ const ProductUpdate = ({ loader, defaultData }) => {
         category: category ? category : "",
         sub_category: sub_category ? sub_category : "",
         brand: brand ? brand : "",
-        image: image_url ? image_url : "",
+        image: image_url ? image_url : defaultData.image,
       })
       .then(function () {
         message.success("Бараа амжилттай нэмэгдлээ");

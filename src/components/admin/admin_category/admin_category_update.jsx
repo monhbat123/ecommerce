@@ -84,11 +84,11 @@ const AdminCategoryUpdate = ({ defaultData, loader }) => {
       .collection("Category")
       .doc(defaultData.key)
       .update({
-        name: values.name,
-        nameEn: values.nameEn,
+        name: values.name ? values.name : defaultData.name,
+        nameEn: values.nameEn ? values.nameEn : defaultData.nameEn,
         description: description[0],
         descriptionEn: description2[0],
-        image: image_url,
+        image: image_url ? image_url : defaultData.image,
       })
       .then(function () {
         message.success("Амжилттай засагдлаа");
