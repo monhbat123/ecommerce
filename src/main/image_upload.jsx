@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Image } from "antd";
+import { Button, Image, message } from "antd";
 import { firebase } from "@/main";
 import ImageUploading from "react-images-uploading";
 
@@ -20,6 +20,7 @@ export default function ImageUpload(props) {
         .getDownloadURL()
         .then((url) => {
           props.image_URL(url);
+          message.success("Зураг амжилттай оруулла");
         });
     });
   };
