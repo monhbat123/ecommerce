@@ -9,6 +9,7 @@ import {
   AdminSubCategory,
   AdminHome,
 } from "@/components/admin";
+import { NotFoundPage } from "@/main";
 function AdminContent() {
   return (
     <div className="content_container">
@@ -21,6 +22,7 @@ function AdminContent() {
         <Route path="/admin/news" component={AdminNews} />
         <Route path="/admin/product" component={AdminProduct} />
         <Route path="/admin/sub-category" component={AdminSubCategory} />
+        <Route path="/admin/" component={NotFoundPage} />
       </Switch>
     </div>
   );

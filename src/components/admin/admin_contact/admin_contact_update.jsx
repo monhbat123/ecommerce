@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Form, Input, message } from "antd";
 import { firebase } from "@/main";
-import ReactQuill from "react-quill";
+
 import "react-quill/dist/quill.snow.css";
 const CollectionCreateForm = ({
   visible,
@@ -10,13 +10,9 @@ const CollectionCreateForm = ({
   defaultValue,
 }) => {
   const [form] = Form.useForm();
-  const [description, setDescription] = useState([defaultValue.address]);
-  const [description2, setDescription2] = useState([defaultValue.address2]);
   useEffect(() => {
     form.resetFields();
   }, [defaultValue, form, onCreate]);
-  console.log(defaultValue);
-
   return (
     <Modal
       visible={visible}
@@ -29,7 +25,7 @@ const CollectionCreateForm = ({
           .validateFields()
           .then((values) => {
             form.resetFields();
-            onCreate(values, description, description2);
+            onCreate(values);
           })
           .catch((info) => {
             console.log("Validate Failed:", info);
@@ -44,23 +40,11 @@ const CollectionCreateForm = ({
           modifier: "public",
         }}
       >
-        <Form.Item label="Хаяг 1">
-          <ReactQuill
-            theme="snow"
-            value={description[0]}
-            onChange={(a) => {
-              setDescription([a]);
-            }}
-          />
+        <Form.Item name="address" label="Address 2">
+          <Input.TextArea defaultValue={defaultValue.email} />
         </Form.Item>
-        <Form.Item label="Хаяг 2">
-          <ReactQuill
-            theme="snow"
-            value={description2[0]}
-            onChange={(w) => {
-              setDescription2([w]);
-            }}
-          />
+        <Form.Item name="address2" label="Address 2">
+          <Input.TextArea defaultValue={defaultValue.email} />
         </Form.Item>
         <Form.Item name="email" label="Email 1">
           <Input defaultValue={defaultValue.email} />
@@ -97,9 +81,9 @@ const CollectionCreateForm = ({
   );
 };
 
-const AdminContactUpdate = ({ defaultData, loader, defaultValue }) => {
+const AdminContactUpdate = ({ loading, defaultValue }) => {
   const [visible, setVisible] = useState(false);
-  const onCreate = (values, description, description2, image_url) => {
+  const onCreate = (values) => {
     firebase.db
       .collection("Contact")
       .doc(defaultValue.key)
@@ -118,13 +102,11 @@ const AdminContactUpdate = ({ defaultData, loader, defaultValue }) => {
         phone: values.phone ? values.phone : defaultValue.phone,
         phone2: values.phone2 ? values.phone2 : defaultValue.phone2,
         phone3: values.phone3 ? values.phone3 : defaultValue.phone3,
-        address: description[0],
-        address2: description2[0],
       })
       .then(function () {
         message.success("Амжилттай засагдлаа");
         setVisible(false);
-        loader(true);
+        loading(true);
       })
       .catch(function (error) {
         alert(error);

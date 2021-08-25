@@ -121,3 +121,28 @@ body {
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
   background-color: #1890ff;
 }
+.main_header_container {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #1890ff;
+  padding: 10px 20px 0 0;
+}
+.main_header_logo {
+  position: absolute;
+}
+.main_header_item {
+  margin: 10px;
+  font-size: 15px;
+  cursor: pointer;
+}
+.main_header_item:hover {
+  color: #1890ff;
+}
+.sub_header_container {
+  display: flex;
+  justify-content: flex-end;
+}
+.sub_header_logo {
+  position: absolute;
+  margin: 10px 40px;
+}

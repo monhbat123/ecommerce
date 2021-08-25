@@ -3,6 +3,7 @@ import { AdminCard, firebase } from "@/main";
 import AdminContactUpdate from "./admin_contact_update";
 export default function AdminContact() {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     firebase.db.collection("Contact").onSnapshot((querySnapshot) => {
       const contact = [];
@@ -12,22 +13,20 @@ export default function AdminContact() {
           key: documentSnapshot.id,
         });
       });
-      console.log(contact[0]);
+      setLoading(false);
       setData(contact[0]);
-      // setData(category);
-      // setLoading(false);
     });
-  }, []);
+  }, [loading]);
   return (
-    <AdminCard title="Холбоо барих хэсэг" loading={false}>
+    <AdminCard title="Холбоо барих хэсэг" loading={loading}>
       Холбоо барих хэсэг
-      <AdminContactUpdate defaultValue={data} />
+      <AdminContactUpdate defaultValue={data} loading={setLoading} />
       <div>Хаяг 1 : {data.address}</div>
       <div>Хаяг 2 : {data.address2}</div>
       <div>Email 1 : {data.email}</div>
       <div>Email 2 : {data.email2}</div>
       <div>
-        Facebook: <a href={data.facebook}>{data.facebook}</a>
+        Facebook : <a href={data.facebook}>{data.facebook}</a>
       </div>
       <div>
         Instagram: <a href={data.instagram}>{data.instagram}</a>

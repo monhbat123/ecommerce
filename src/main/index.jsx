@@ -10,6 +10,7 @@ import { vars, getVars } from "./global";
 import AdminCard from "./admin_card";
 import { UserContext } from "./context";
 import ImageUpload from "./image_upload";
+import NotFoundPage from "./not_found_page";
 export {
   Carousel,
   Layout,
@@ -24,4 +25,5 @@ export {
   AdminCard,
   UserContext,
   ImageUpload,
+  NotFoundPage,
 };
