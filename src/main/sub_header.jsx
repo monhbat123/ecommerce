@@ -6,6 +6,8 @@ import {
 } from "@ant-design/icons";
 
 export default function SubHeader() {
+  /* eslint-disable */
+
   return (
     <>
       <a className="sub_header_logo">LOGO</a>

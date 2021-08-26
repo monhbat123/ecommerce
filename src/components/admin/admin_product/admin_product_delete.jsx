@@ -12,6 +12,8 @@ export default function AdminSubCategoryDelete({ id, loader }) {
         loader(true);
       });
   }
+  /* eslint-disable */
+
   return (
     <Popconfirm
       title="Та энэ төрлийг устгахдаа итгэлтэй байна уу?"

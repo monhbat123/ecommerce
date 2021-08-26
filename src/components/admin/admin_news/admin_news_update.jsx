@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Modal, Form, Input, message } from "antd";
+import { Modal, Form, Input, message } from "antd";
 import ReactQuill from "react-quill";
 import { firebase, ImageUpload } from "@/main";
 import "react-quill/dist/quill.snow.css";
@@ -8,6 +8,8 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel, defaultData }) => {
   const [description, setDescription] = useState(defaultData.post);
   const [description2, setDescription2] = useState(defaultData.postEn);
   const [image_url, set_url] = useState([]);
+  /* eslint-disable */
+
   return (
     <Modal
       visible={visible}

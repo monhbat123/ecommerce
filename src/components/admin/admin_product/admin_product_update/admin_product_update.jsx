@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Modal, Form, Input, message, Select } from "antd";
+import { Modal, Form, Input, message } from "antd";
 import ReactQuill from "react-quill";
 import { firebase, ImageUpload } from "@/main";
 import "react-quill/dist/quill.snow.css";
@@ -21,6 +21,8 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel, defaultData }) => {
   useEffect(() => {
     form.resetFields();
   }, [defaultData]);
+
+  /* eslint-disable */
   return (
     <Modal
       visible={visible}

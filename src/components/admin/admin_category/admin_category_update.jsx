@@ -12,6 +12,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel, defaultData }) => {
   useEffect(() => {
     form.resetFields();
   }, [defaultData, form, onCreate]);
+  /* eslint-disable */
 
   return (
     <Modal

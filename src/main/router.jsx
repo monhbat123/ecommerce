@@ -10,7 +10,7 @@ import { Category, Product, AboutUs, Contact } from "@/components";
 import { AdminLayout } from "@/components/admin";
 
 export default function Router() {
-  const abortController = new AbortController(); // eslint-disable-next-line
+  const abortController = new AbortController();
   const [currentUser, setCurrentUser] = useState(false);
 
   useEffect(() => {
@@ -20,6 +20,8 @@ export default function Router() {
       abortController.abort();
     };
   }, [abortController]);
+
+  /* eslint-disable */
 
   return (
     <>

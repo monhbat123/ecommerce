@@ -15,6 +15,7 @@ firebase.initializeApp({
 let db = firebase.firestore();
 let auth = firebase.auth();
 let storage = firebase.storage();
+/* eslint-disable */
 
 export default {
   firebase,
